@@ -2,7 +2,7 @@ import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 from matplotlib import pyplot as plt
 
-data = pd.read_csv('/kaggle/input/digit-recognizer/train.csv')
+data = pd.read_csv('data/train.csv')
 
 data = np.array(data)  # converts data to numpy array
 m, n = data.shape
