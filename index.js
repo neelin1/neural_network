@@ -6,18 +6,22 @@ const guide = document.getElementById("guide");
 const colorInput = document.getElementById("colorInput");
 const toggleGuide = document.getElementById("toggleGuide");
 const clearButton = document.getElementById("clearButton");
-const drawingContext = canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 
+//drawing or not
+let isPainting = false;
+
+//Set how many squares our on each side of the canvas
 const CELL_SIDE_COUNT = 28;
 const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
 
 // Set default color
-colorInput.value = "#009578";
+colorInput.value = "#000000";
 
 // Initialize the canvas background
-drawingContext.fillStyle = "#ffffff";
-drawingContext.fillRect(0, 0, canvas.width, canvas.height);
+ctx.fillStyle = "#ffffff";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Setup the guide
 {
@@ -32,8 +36,16 @@ drawingContext.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function handleCanvasMousedown(e) {
+  isPainting = true
+}
+
+function handleCanvasMousemove(e) {
   // Ensure user is using their primary mouse button
   if (e.button !== 0) {
+    return;
+  }
+
+  if (!isPainting) {
     return;
   }
 
@@ -53,35 +65,36 @@ function handleCanvasMousedown(e) {
   }
 }
 
+function fillCell(cellX, cellY) {
+  const startX = cellX * cellPixelLength;
+  const startY = cellY * cellPixelLength;
+
+  ctx.fillStyle = colorInput.value;
+  ctx.fillRect(startX, startY, cellPixelLength, cellPixelLength);
+  colorHistory[`${cellX}_${cellY}`] = colorInput.value;
+}
+
 function handleClearButtonClick() {
-  const yes = confirm("Are you sure you wish to clear the canvas?");
-
-  if (!yes) return;
-
-  drawingContext.fillStyle = "#ffffff";
-  drawingContext.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function handleToggleGuideChange() {
   guide.style.display = toggleGuide.checked ? null : "none";
 }
 
-function fillCell(cellX, cellY) {
-  const startX = cellX * cellPixelLength;
-  const startY = cellY * cellPixelLength;
-
-  drawingContext.fillStyle = colorInput.value;
-  drawingContext.fillRect(startX, startY, cellPixelLength, cellPixelLength);
-  colorHistory[`${cellX}_${cellY}`] = colorInput.value;
-}
-
+//listens for events and calls relevent functions
 canvas.addEventListener("mousedown", handleCanvasMousedown);
+canvas.addEventListener("mousemove", handleCanvasMousemove);
+canvas.addEventListener('mouseup', e => { //listen for when no longer drawing
+  isPainting = false;
+});
 clearButton.addEventListener("click", handleClearButtonClick);
 toggleGuide.addEventListener("change", handleToggleGuideChange);
 
 
 // const canvas = document.getElementById('drawing-board'); //getting canvas document
-// const toolbar = document.getElementById('toolbar');
+const toolbar = document.getElementById('toolbar');
 // const ctx = canvas.getContext('2d');
 
 // const canvasOffsetX = canvas.offsetLeft;
@@ -130,12 +143,6 @@ toggleGuide.addEventListener("change", handleToggleGuideChange);
 //   isPainting = true;
 //   startX = e.clientX;
 //   startY = e.clientY;
-// });
-
-// canvas.addEventListener('mouseup', e => { //listen for when no longer drawing
-//   isPainting = false;
-//   ctx.stroke();
-//   ctx.beginPath();
 // });
 
 // canvas.addEventListener('mousemove', draw);

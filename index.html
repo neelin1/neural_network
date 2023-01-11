@@ -20,25 +20,18 @@
       <input id="stroke" name='stroke' type="color"></input>
       <input id="lineWidth" name='lineWidth' type="number" value="5"></input> -->
       <p></p>
-      <button id="clear">Clear</button>
+      <button type="button" id="clearButton">Clear</button>
+      <label for="colorInput">Set Color: </label>
+      <input type="color" id="colorInput">
+      <label for="toggleGuide">Show Guide: </label>
+      <input type="checkbox" id="toggleGuide" checked>
     </div>
     <!-- <div class="drawing-board">
       <canvas id="drawing-board"></canvas>
     </div> -->
     <div>
       <div id="guide"></div>
-      <canvas width="450" height="450" id="canvas"></canvas>
-    </div>
-    <div>
-      <label for="colorInput">Set Color: </label>
-      <input type="color" id="colorInput">
-    </div>
-    <div>
-      <label for="toggleGuide">Show Guide: </label>
-      <input type="checkbox" id="toggleGuide" checked>
-    </div>
-    <div>
-      <button type="button" id="clearButton">Clear</button>
+      <canvas width="500" height="500" id="canvas"></canvas>
     </div>
   </section>
   <script src="./index.js"></script>

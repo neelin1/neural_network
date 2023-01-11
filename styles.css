@@ -37,11 +37,15 @@ h1 {
 }
 
 #toolbar label {
-  font-size: 15px;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 13pt;
+  font-weight: 900;
+  line-height: 1.00;
 }
 
 #toolbar input {
   width: 100%;
+  cursor: pointer;
 }
 
 #toolbar button {
@@ -54,6 +58,7 @@ h1 {
   font-size: 15pt;
   font-weight: 900;
   line-height: 1.00;
+  cursor: pointer;
 }
 
 #canvas {
@@ -65,6 +70,7 @@ h1 {
   pointer-events: none;
   position: absolute;
   border: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
 #guide div {
