@@ -16,13 +16,29 @@
   <section class="container">
     <div id="toolbar">
       <h1>What's That Number?</h1>
-      <label for="stroke">Stroke</label>
+      <!-- <label for="stroke">Stroke</label>
       <input id="stroke" name='stroke' type="color"></input>
-      <input id="lineWidth" name='lineWidth' type="number" value="5"></input>
+      <input id="lineWidth" name='lineWidth' type="number" value="5"></input> -->
+      <p></p>
       <button id="clear">Clear</button>
     </div>
-    <div class="drawing-board">
+    <!-- <div class="drawing-board">
       <canvas id="drawing-board"></canvas>
+    </div> -->
+    <div>
+      <div id="guide"></div>
+      <canvas width="450" height="450" id="canvas"></canvas>
+    </div>
+    <div>
+      <label for="colorInput">Set Color: </label>
+      <input type="color" id="colorInput">
+    </div>
+    <div>
+      <label for="toggleGuide">Show Guide: </label>
+      <input type="checkbox" id="toggleGuide" checked>
+    </div>
+    <div>
+      <button type="button" id="clearButton">Clear</button>
     </div>
   </section>
   <script src="./index.js"></script>
