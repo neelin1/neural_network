@@ -1,6 +1,5 @@
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
-from matplotlib import pyplot as plt
 
 # GETTING AND ORGANIZING DATA
 
@@ -105,38 +104,13 @@ def gradient_descent(X, Y, alpha, iterations):
 
 # GRADIENT DESCENT TO TRAIN THE MODEL
 
-W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 1000)
+W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 2000)
+model = (W1, b1, W2, b2)
+np.save('data/w1.npy', W1, True, False)
+np.save('data/b1.npy', b1, True, False)
+np.save('data/w2.npy', W2, True, False)
+np.save('data/b2.npy', b2, True, False)
 
-print (W1, b1, W2, b2)
+# print(W1, b1, W2, b2)
 
 # 85 % accuracy
-
-# USING THE MODEL
-
-
-def make_predictions(X, W1, b1, W2, b2):
-    _, _, _, A2 = forward_prop(W1, b1, W2, b2, X)
-    predictions = get_predictions(A2)
-    return predictions
-
-
-def test_prediction(index, W1, b1, W2, b2):
-    current_image = X_train[:, index, None]
-    prediction = make_predictions(X_train[:, index, None], W1, b1, W2, b2)
-    label = Y_train[index]
-    print("Prediction: ", prediction)
-    print("Label: ", label)
-
-    current_image = current_image.reshape((28, 28)) * 255
-    plt.gray()
-    plt.imshow(current_image, interpolation='nearest')
-    plt.show()
-
-
-# test_prediction(0, W1, b1, W2, b2)
-# test_prediction(1, W1, b1, W2, b2)
-# test_prediction(2, W1, b1, W2, b2)
-# test_prediction(3, W1, b1, W2, b2)
-# test_prediction(4, W1, b1, W2, b2)
-# test_prediction(5, W1, b1, W2, b2)
-# test_prediction(6, W1, b1, W2, b2)
