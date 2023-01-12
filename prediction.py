@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
-from model import forward_prop, get_predictions
 
 # GETTING AND ORGANIZING DATA
 data = pd.read_csv('data/train.csv')
@@ -23,6 +22,27 @@ X_train = X_train / 255.
 _, m_train = X_train.shape
 
 # USING THE MODEL
+
+
+def ReLU(Z):
+    return np.maximum(Z, 0)
+
+
+def softmax(Z):
+    A = np.exp(Z) / sum(np.exp(Z))
+    return A
+
+
+def forward_prop(W1, b1, W2, b2, X):
+    Z1 = W1.dot(X) + b1
+    A1 = ReLU(Z1)
+    Z2 = W2.dot(A1) + b2
+    A2 = softmax(Z2)
+    return Z1, A1, Z2, A2
+
+
+def get_predictions(A2):
+    return np.argmax(A2, 0)
 
 
 def make_predictions(X, W1, b1, W2, b2):
@@ -48,11 +68,6 @@ W2 = np.load('data/w2.npy', None, True)
 b2 = np.load('data/b2.npy', None, True)
 
 test_prediction(X_train[:, 0, None], Y_train[0], W1, b1, W2, b2)
-
-# test_prediction(0, W1, b1, W2, b2)
-# test_prediction(1, W1, b1, W2, b2)
-# test_prediction(2, W1, b1, W2, b2)
-# test_prediction(3, W1, b1, W2, b2)
-# test_prediction(4, W1, b1, W2, b2)
-# test_prediction(5, W1, b1, W2, b2)
-# test_prediction(6, W1, b1, W2, b2)
+test_prediction(X_train[:, 1, None], Y_train[1], W1, b1, W2, b2)
+test_prediction(X_train[:, 2, None], Y_train[2], W1, b1, W2, b2)
+test_prediction(X_train[:, 3, None], Y_train[3], W1, b1, W2, b2)
