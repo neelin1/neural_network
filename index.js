@@ -15,6 +15,7 @@ let isPainting = false;
 const CELL_SIDE_COUNT = 28;
 const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
+currentArray = new Array(784);
 
 // Set default color
 colorInput.value = "#000000";
@@ -72,12 +73,26 @@ function fillCell(cellX, cellY) {
   ctx.fillStyle = colorInput.value;
   ctx.fillRect(startX, startY, cellPixelLength, cellPixelLength);
   colorHistory[`${cellX}_${cellY}`] = colorInput.value;
+  currentArray[cellY * 28 + cellX] = 255;
+}
+
+function handleNumberGuess() {
+  //todo
+  $.ajax({
+    type: "POST",
+    url: "~/prediction.py",
+    data: { param: text }
+  }).done(function (o) {
+    document.getElementById('output').innerHTML = Math.floor(Math.random() * 10);
+  });
+
 }
 
 function handleClearButtonClick() {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   colorHistory = {};
+  currentArray = new Array(784);
 }
 
 function handleToggleGuideChange() {
@@ -89,6 +104,7 @@ canvas.addEventListener("mousedown", handleCanvasMousedown);
 canvas.addEventListener("mousemove", handleCanvasMousemove);
 canvas.addEventListener('mouseup', e => { //listen for when no longer drawing
   isPainting = false;
+  handleNumberGuess();
 });
 clearButton.addEventListener("click", handleClearButtonClick);
 toggleGuide.addEventListener("change", handleToggleGuideChange);

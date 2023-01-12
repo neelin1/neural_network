@@ -60,6 +60,7 @@ def test_prediction(current_image, label, W1, b1, W2, b2):
     plt.gray()
     plt.imshow(current_image, interpolation='nearest')
     plt.show()
+    return prediction
 
 
 W1 = np.load('data/w1.npy', None, True)
@@ -67,7 +68,13 @@ b1 = np.load('data/b1.npy', None, True)
 W2 = np.load('data/w2.npy', None, True)
 b2 = np.load('data/b2.npy', None, True)
 
-test_prediction(X_train[:, 0, None], Y_train[0], W1, b1, W2, b2)
-test_prediction(X_train[:, 1, None], Y_train[1], W1, b1, W2, b2)
-test_prediction(X_train[:, 2, None], Y_train[2], W1, b1, W2, b2)
-test_prediction(X_train[:, 3, None], Y_train[3], W1, b1, W2, b2)
+
+def prediction(image_array, label):
+    return test_prediction(image_array, label, W1, b1, W2, b2)
+
+
+prediction(X_train[:, 0, None], Y_train[0])
+prediction(X_train[:, 1, None], Y_train[1])
+prediction(X_train[:, 2, None], Y_train[2])
+prediction(X_train[:, 3, None], Y_train[3])
+prediction(X_dev[:, 0, None], Y_train[0])
