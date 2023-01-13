@@ -16,6 +16,7 @@ const CELL_SIDE_COUNT = 28;
 const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
 currentArray = new Array(784);
+currentArray.fill(0);
 
 // Set default color
 colorInput.value = "#000000";
@@ -77,11 +78,15 @@ function fillCell(cellX, cellY) {
 }
 
 function handleNumberGuess() {
-  //todo
+  const s = JSON.stringify(currentArray);
+  console.log(s)
+  // document.getElementById('output').innerHTML = currentArray;
+  // document.getElementById('output').innerHTML = Math.floor(Math.random() * 10);
   $.ajax({
-    type: "POST",
     url: "~/prediction.py",
-    data: { param: text }
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(s)
   }).done(function (o) {
     document.getElementById('output').innerHTML = Math.floor(Math.random() * 10);
   });
@@ -91,8 +96,9 @@ function handleNumberGuess() {
 function handleClearButtonClick() {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  colorHistory = {};
-  currentArray = new Array(784);
+  // colorHistory = {};
+  currentArray.fill(0);
+  console.log(currentArray)
 }
 
 function handleToggleGuideChange() {

@@ -104,7 +104,7 @@ def gradient_descent(X, Y, alpha, iterations):
 
 # GRADIENT DESCENT TO TRAIN THE MODEL
 
-W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 3000)
+W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 5000)
 model = (W1, b1, W2, b2)
 np.save('data/w1.npy', W1, True, False)
 np.save('data/b1.npy', b1, True, False)
